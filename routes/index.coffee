@@ -40,7 +40,7 @@ exports.query = (req, res) ->
           scoreMap.push {error: error, count: count}
         console.log scoreMap
         console.log "LOL"
-        next null, (_.pluck (_.sortBy scoreMap, (error) -> error.count)[0..3], 'error')
+        next null, (_.pluck (_.sortBy scoreMap, (error) -> -error.count)[0..3], 'error')
     ], (err, {errors, query}) =>
       if err
         console.log "ERROR", err
