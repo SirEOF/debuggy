@@ -1,0 +1,54 @@
+extends layout
+
+block content  
+
+  .row
+    .col-md-8.col-md-offset-2
+      h2 Debug!
+      hr
+
+      pre.lead(style="color: red;") #{query.errorText}
+
+      a(type='button', data-toggle='collapse', data-target='#newErrorForm')
+        | No Solutions Exist?
+      #newErrorForm.collapse 
+        form(method="post", action="/addError")
+          input(type="hidden", name="id", value="#{query.id}")
+          .form-group
+            label(for="errorTitle") Title
+            input#errorTitle.form-control(type="text", name="errorTitle")
+          .form-group
+            label(for="errorDescription") Description
+            textarea#errorDescription.form-control(rows="3", name="errorDescription")
+          button.btn.pull-right.btn-success(type='submit') Create Error
+
+  .row
+    .col-md-8.col-md-offset-2
+      h2 Related Errors
+      hr
+
+      -function prettyDate(dateString){
+          //if it's already a date object and not a string you don't need this line:
+          -var date = new Date(dateString);
+          -var d = date.getDate();
+          -var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+          -var m = monthNames[date.getMonth()];
+          -var y = date.getFullYear();
+          -return d+' '+m+' '+y;
+      -}
+
+      mixin errorBlock(title, dateCreated, language, errorText, description, id)
+        .well
+          h3.title #{title}
+          p.date.pull-right #{prettyDate(dateCreated)}
+          p.text-muted #{language}
+
+          pre.code #{errorText}
+          strong Description
+
+          p.description #{description}
+
+          a(href="/error/#{id}") Go to Solution
+
+      for error in errors
+        +errorBlock(error.title, error.dateCreated, error.language, error.errorText, error.description, error.id)

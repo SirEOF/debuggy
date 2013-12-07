@@ -1,0 +1,102 @@
+extends layout
+
+block content  
+
+  .row
+    .col-md-8.col-md-offset-2
+      h1 Debuggy!
+      hr
+
+      .col-md-6
+        p.lead
+          | One of the most frusting parts of programming for new programmers is debugging code. 
+          strong Debuggy 
+          | takes the pain out of that.
+
+        p.lead
+          | Debuggy is a collaborative debugging tool. Users can search the Debuggy database for solutions to their problems, rate solutions if they are helpful, or help others by submit their own problems/solutions.
+
+
+        blockquote.pull-right
+          p.lead Debuggy has made learning python so much easier!
+          small
+            cite.lead Nick Winkel
+
+
+        blockquote.pull-right
+          p.lead I like turtles!
+          small
+            cite.lead Myder Vang
+
+
+      .col-md-6(style="text-align: center")
+        img(src="img/debuggy.png", height="500px")
+
+  .row#howItWorksSection
+    .col-md-8.col-md-offset-2
+      h2 How does it work?
+      hr
+
+      .row 
+        .col-md-3.well
+          h4 Step One
+          p.lead Generate an Error
+        .col-md-3.well
+          h4 Step Two
+          p.lead Submit to Debuggy
+        .col-md-3.well
+          h4 Step Three
+          p.lead Learn from others' solutions
+        .col-md-3.well
+          h4 Step Four
+          p.lead Rate solutions or submit
+       
+  .row#debugSection
+    .col-md-8.col-md-offset-2
+      h2 Debug!
+      hr
+
+      form(role='form', method="post", action="query")
+        .form-group
+          label(for="errorMessage") Error Message
+          textarea#errorMessage.form-control(name="errorMessage", rows="6")
+        .form-group
+          label(for='languageSelect') Language
+          select.form-control(name="languageSelect")
+            option C++
+            option Java
+            option Objective-C
+            option Python
+
+        button.btn.btn-lg.btn-block.pull-right.btn-success(type='submit') Debug
+
+  .row#recentSection
+    .col-md-8.col-md-offset-2
+      h2 Recent Errors
+      hr
+
+      -function prettyDate(dateString){
+          //if it's already a date object and not a string you don't need this line:
+          -var date = new Date(dateString);
+          -var d = date.getDate();
+          -var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+          -var m = monthNames[date.getMonth()];
+          -var y = date.getFullYear();
+          -return d+' '+m+' '+y;
+      -}
+
+      mixin errorBlock(title, dateCreated, language, errorText, description, id)
+        .well
+          h3.title #{title}
+          p.date.pull-right #{prettyDate(dateCreated)}
+          p.text-muted #{language}
+
+          pre.code #{errorText}
+          strong Description
+
+          p.description #{description}
+
+          a(href="/error/#{id}") Go to Solution
+
+      for error in recentErrors
+        +errorBlock(error.title, error.dateCreated, error.language, error.errorText, error.description, error.id)

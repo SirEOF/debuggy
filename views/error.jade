@@ -1,0 +1,44 @@
+extends layout
+
+block content
+  .row#recentSection
+    .col-md-8.col-md-offset-2
+      
+      mixin bigErrorBlock(title, dateCreated, language, errorText, description, fixes)
+        h1.title #{title}
+        hr
+        p.date.pull-right #{prettyDate(dateCreated)}
+        p.text-muted #{language}
+
+        pre.code #{errorText}
+        strong Description
+
+        p.description #{description}
+
+        h2 Solutions!
+
+        mixin fixesBlock(author, description, dateCreated)
+          .well
+            h4 #{author}
+            p.date.pull-right #{prettyDate(dateCreated)}
+            p.solution #{description} 
+
+        for fix in fixes
+          +fixesBlock(fix.author, fix.description, fix.dateCreated)
+
+        .well
+          form(role='form', method="post", action="/addComment")
+            legend Add Fix
+            .form-group 
+              input(type="hidden", name="id", value="#{error.id}")
+            .form-group
+              label(for="fixTextarea") Solution
+              textarea#fixTextarea.form-control(rows="3",name="fixTextarea")
+            .form-group
+              label(for="authorInput") Author
+              input#authorInput.form-control(type="text", placeholder="anonymous", name="authorInput") LOL
+            button.btn.pull-right.btn-success(type='submit') Submit Solution
+
+      +bigErrorBlock(error.title, error.dateCreated, error.language, error.errorText, error.description, error.fixes)
+
+     
