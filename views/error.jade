@@ -10,7 +10,8 @@ block content
         p.date.pull-right #{prettyDate(dateCreated)}
         p.text-muted #{language}
 
-        pre.code #{errorText}
+        pre
+          code(data-language="#{language}") #{errorText}
         strong Description
 
         p.description #{description}
