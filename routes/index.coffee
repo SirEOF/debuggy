@@ -37,7 +37,7 @@ exports.query = (req, res) ->
             for word2 in query.errorText.split(' ')
               if word1.toLowerCase() == word2.toLowerCase()
                 ++count
-          scoreMap.push {error: error, count: count}
+          scoreMap.push {error: error, count: (count / error.errorText.length) }
         console.log scoreMap
         console.log "LOL"
         next null, (_.pluck (_.sortBy scoreMap, (error) -> -error.count)[0..3], 'error')
