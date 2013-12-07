@@ -12,8 +12,13 @@ html(lang='en')
 
     style.
       body {
-        margin-top: 80px;
+        margin-top: 40px;
       }
+
+    script.
+      var shiftWindow = function() { scrollBy(0, -50) };
+      if (location.hash) shiftWindow();
+      window.addEventListener("hashchange", shiftWindow);
 
     -function prettyDate(dateString){
         //if it's already a date object and not a string you don't need this line:
@@ -39,7 +44,7 @@ html(lang='en')
           .collapse.navbar-collapse
             ul.nav.navbar-nav.pull-right
               li.active
-                a(href='#howItWorksSection') How it works
+                a(href='#howItWorksSection') How it Works
               li
                 a(href='#debugSection') Debug
               li
@@ -47,13 +52,12 @@ html(lang='en')
               li
                 a(href='#footer') Contact
 
-
       #content
         block content
 
     #footer
       .container
-        p.text-muted &copy 2013 Stuart Larsen &amp; William Dallman
+        p.text-muted &copy; 2013 Stuart Larsen &amp; William Dallman
 
     script(src='https://code.jquery.com/jquery-1.10.2.min.js')
     script(src='/js/static/bootstrap.min.js')

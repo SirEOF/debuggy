@@ -13,7 +13,6 @@ exports.index = (req, res) ->
     res.render "",
       recentErrors: errors
 
-
 exports.error = (req, res) ->
   ErrorModel.findById(req.params.id).exec (err, error) ->
     if err

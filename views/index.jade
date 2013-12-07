@@ -9,9 +9,9 @@ block content
 
       .col-md-6
         p.lead
-          | One of the most frusting parts of programming for new programmers is debugging code. 
+          | One of the most frustrating parts of programming for new programmers is debugging code. 
           strong Debuggy 
-          | takes the pain out of that.
+          | simplifys that.
 
         p.lead
           | Debuggy is a collaborative debugging tool. Users can search the Debuggy database for solutions to their problems, rate solutions if they are helpful, or help others by submitting their own problems/solutions.
@@ -35,29 +35,49 @@ block content
       h2 How does it work?
       hr
 
-      .row 
-        .col-md-3.well
-          h4 Step One
-          p.lead Generate an Error
-        .col-md-3.well
-          h4 Step Two
-          p.lead Submit to Debuggy
-        .col-md-3.well
-          h4 Step Three
-          p.lead Learn from others' solutions
-        .col-md-3.well
-          h4 Step Four
-          p.lead Rate solutions or submit
-       
+      .row
+        .col-md-6
+          .well
+            h2.text-muted Step One
+            p.lead Generate an Error
+        .col-md-6
+          p.lead(style="padding: 25px;") First you have to do something wrong! If your program fails to compile, or spits out a nasty error, copy and paste the error message, and any other important information.
+
+      .row
+        .col-md-6
+          p.lead(style="padding: 25px;") Below is a text box for your error code. Take the code you just copied from your broken program and place it below. Make sure to also select the language you were using. 
+        .col-md-6
+          .well
+            h2.text-muted Step Two
+            p.lead Submit to Debuggy
+
+      .row
+        .col-md-6
+          .well
+            h2.text-muted Step Three
+            p.lead Learn from others' solutions
+        .col-md-6
+          p.lead(style="padding: 25px;") A list of possible solutions will be displayed to you. Debuggy uses an algorithm to match solutions it thinks will be the most helpful.
+
+
+      .row
+        .col-md-6
+          p.lead(style="padding: 25px;") If there's a solution you found useful, make sure to upvote it! If there aren't any helpful solutions, try submitting it, and someone else can take a look.
+        .col-md-6
+          .well
+            h2.text-muted Step Four
+            p.lead Rate solutions or submit
+
+     
   .row#debugSection
     .col-md-8.col-md-offset-2
-      h2 Debug!
+      h2 Get Started!
       hr
 
       form(role='form', method="post", action="query")
         .form-group
           label(for="errorMessage") Error Message
-          textarea#errorMessage.form-control(name="errorMessage", rows="6")
+          textarea#errorMessage.form-control(name="errorMessage", rows="6", placeholder="Failed to initialize variable superMatrix...")
         .form-group
           label(for='languageSelect') Language
           select.form-control(name="languageSelect")
@@ -66,7 +86,7 @@ block content
             option Objective-C
             option Python
 
-        button.btn.btn-lg.btn-block.pull-right.btn-success(type='submit') Debug
+        button.btn.btn-lg.btn-block.pull-right.btn-success(type='submit') Search for Solutions
 
   .row#recentSection
     .col-md-8.col-md-offset-2
@@ -90,7 +110,7 @@ block content
           p.text-muted #{language}
 
           pre.code #{errorText}
-          strong Description
+          strong Description of Error
 
           p.description #{description}
 
