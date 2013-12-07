@@ -12,6 +12,7 @@
     "mongoose": "*",
     "async": "*",
     "baucis": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "optimist": "*"
   }
 }

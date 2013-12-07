@@ -3,6 +3,11 @@ mongoose  = require 'mongoose'
 http = require("http")
 path = require("path")
 baucis = require 'baucis'
+argv = require('optimist')
+       .default('port', 3000)
+       .default('hostname', '127.0.0.1')
+       .alias('port', 'p')
+       .argv
 
 mongoose.connect 'mongodb://localhost/debuggy'
 
@@ -38,5 +43,5 @@ app.post "/addComment", routes.addComment
 app.post "/addError", routes.addError
 app.post "/query", routes.addQuery
 
-http.createServer(app).listen app.get("port"), ->
-  console.log "Express server listening on port " + app.get("port")
+http.createServer(app).listen argv.port, ->
+  console.log "Express server listening on port " + argv.port
